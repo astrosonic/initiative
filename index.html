@@ -7,45 +7,41 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
         <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-        <style>
-            .izzuhead {font-family: 'Inter', sans-serif !important;}
-        </style>
+        <style>.izzuhead {font-family: 'Inter', sans-serif !important;}</style>
     </head>
     <body onload="makeplec();">
-        <div class="ui attached stackable menu" style="font-family: 'Inter', sans-serif;">
+        <div class="ui attached stackable menu izzuhead">
             <div class="ui container">
-                <a class="item"><i class="home icon"></i> Home</a>
-                <a class="item"><i class="grid layout icon"></i> Browse</a>
-                <a class="item"><i class="mail icon"></i> Messages</a>
-                <div class="ui simple dropdown item">
-                    More
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item"><i class="edit icon"></i> Edit Profile</a>
-                        <a class="item"><i class="globe icon"></i> Choose Language</a>
-                        <a class="item"><i class="settings icon"></i> Account Settings</a>
-                    </div>
-                </div>
+                <a class="item" href="https://astrosonic.tech/" target="_blank"><i class="home icon"></i> Home</a>
+                <a class="item" href="https://astrosonic.tech/about/" target="_blank"><i class="grid layout icon"></i> About</a>
             </div>
         </div>
         <br/>
-        <div class="ui container" id="body">
-            <!--
-            <h2 class="ui header teal" style="font-family: 'Inter', sans-serif;"><i class="shield icon"></i><div class="content">AstroSonic<div class="sub header">Unlock secrets inside the ancient relics</div></div></h2>
-            <h3 class="ui header" style="font-family: 'Inter', sans-serif;">t0xic0der/syngrafias</h3>
-            <div class="ui relaxed divided list" id="t001" style="margin-top: 20px;"></div>
-            -->
-        </div>
+        <div class="ui container" id="body"></div>
     </body>
     <script>
         function makeplec() {
             let repodict = {
+                "astrosonic": {
+                    "a001": "astrosonic/sanctuary",
+                    "a002": "astrosonic/forge",
+                    "a003": "astrosonic/bazooka-share",
+                    "a004": "astrosonic/community-website",
+                    "a005": "astrosonic/F.E.A.S.T."
+                },
                 "t0xic0der": {
                     "t001": "t0xic0der/syngrafias",
                     "t002": "t0xic0der/sanctuary-zero",
-                },
-                "astrosonic": {
-                    "a001": "astrosonic/sanctuary"
+                    "t003": "t0xic0der/nvidia-auto-installer-for-fedora",
+                    "t004": "t0xic0der/sysmon",
+                    "t005": "t0xic0der/dispatch",
+                    "t006": "t0xic0der/forge-zero",
+                    "t007": "t0xic0der/nfa-string-parser",
+                    "t008": "t0xic0der/re2fa-converter",
+                    "t009": "t0xic0der/inquizition",
+                    "t010": "t0xic0der/pignus-framework-vulnerability-detector",
+                    "t011": "t0xic0der/pignus-agent-for-internet-protection",
+                    "t012": "t0xic0der/foliage",
                 }
             };
             for (indx in repodict)
@@ -65,11 +61,10 @@
             fetch("https://api.github.com/repos/" + reponame + "/issues")
                 .then(res => res.json())
                 .then((temp) => {
-                    console.log(temp);
                     for (indx in temp)
                     {
                         let modifdom = "<div class='item'>" + "<i class='large file alternate outline middle aligned icon'></i>" + "<div class='content'>" +
-                            "<a class='header izzuhead' href='" + temp[indx]["html_url"] + "'>#" + temp[indx]["number"] + " " + temp[indx]["title"] + "</a>" +
+                            "<a class='header izzuhead' href='" + temp[indx]["html_url"] + "' target='_blank'>#" + temp[indx]["number"] + " " + temp[indx]["title"] + "</a>" +
                             "<div class='description izzuhead'><strong>" + temp[indx]["state"].toUpperCase() + "</strong>, Created at " + temp[indx]["created_at"] + "</div>" + "</div>" + "</div>";
                         $("#"+loca).append(modifdom);
                     }
