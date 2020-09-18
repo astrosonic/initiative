@@ -87,7 +87,7 @@
                             "<div class='description izzuhead'><strong>" + temp[indx]["state"].toUpperCase() + "</strong>, Created at " + temp[indx]["created_at"] + "</div>" + "</div>" + "</div>";
                         $("#"+loca).append(modifdom);
                     }
-            }).catch(err => console.error(err)).then($("#limtexcd").modal("show"));
+            }).catch(err => console.error(err));
         }
         function toglmodl(reponame, qant) {
             fetch("https://api.github.com/repos/" + reponame + "/issues/" + qant)
@@ -106,7 +106,7 @@
                     }
                     $("#yesebutn").click(window.open(temp["html_url"], "_blank"));
                     $("#izzumode").modal("show");
-            }).catch(err => console.error(err)).then($("#limtexcd").modal("show"));
+            }).catch(err => console.error(err));
         }
     </script>
 </html>
