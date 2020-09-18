@@ -2,7 +2,7 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Cephalon Syntrofos</title>
+        <title>AstroSonic Initiative</title>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
         <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
@@ -18,26 +18,35 @@
         </div>
         <br/>
         <div class="ui container" id="body"></div>
-        <div class="ui basic modal">
+        <div class="ui basic modal" id="izzumode">
             <div class="ui icon header"><i class="file alternate outline icon"></i><span id="repottle"></span></div>
             <div class="content" style="text-align: center;">
-                <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+                <p>Would you wish to have this issue assigned to you?</p>
                 <table class="ui celled striped table">
                     <thead>
-                        <tr><th colspan="2">#<span id="izzueide"></span>&nbsp;<span id="izzuenam"></span></th></tr>
+                        <tr><th colspan="2" id="izzuname"></th></tr>
                     </thead>
                     <tbody>
-                        <tr><td class="left aligned collapsing">Author</td><td id="authornm"></td></tr>
+                        <tr><td class="left aligned collapsing">Author</td><td id="izzuauth"></td></tr>
                         <tr><td class="left aligned collapsing">State</td><td id="izzustat"></td></tr>
                         <tr><td class="left aligned collapsing">Created at</td><td id="makedate"></td></tr>
                         <tr><td class="left aligned collapsing">Updated at</td><td id="updtdate"></td></tr>
-                        <tr><td class="left aligned collapsing">Assignees</td><td id="assignee"></td></tr>
+                        <tr><td class="left aligned collapsing">Labels</td><td id="labelist"></td></tr>
                     </tbody>
                 </table>
             </div>
             <div class="actions" style="text-align: center;">
-                <div class="ui red basic cancel inverted button"><i class="remove icon"></i>No</div>
-                <div class="ui green ok inverted button"><i class="checkmark icon"></i>Yes</div>
+                <div class="ui red basic cancel inverted button"><i class="remove icon"></i>Decline</div>
+                <div class="ui green ok inverted button" id="yesebutn"><i class="checkmark icon"></i>Accept</div>
+            </div>
+        </div>
+        <div class="ui basic modal" id="limtexcd">
+            <div class="ui icon header"><i class="exclamation triangle icon"></i>Warning</div>
+            <div class="content" style="text-align: center;">
+                <p>The API request limit has been exceeded from your IP address. Please try fetching information later.</p>
+            </div>
+            <div class="actions" style="text-align: center;">
+                <div class="ui teal ok inverted button" onclick="location.reload()"><i class="sync icon"></i>Refresh</div>
             </div>
         </div>
     </body>
@@ -45,11 +54,13 @@
         function makeplec() {
             let repodict = {
                 "astrosonic": {
-                    "a001": "astrosonic/sanctuary"
+                    "a001": "astrosonic/sanctuary", "a002": "astrosonic/forge", "a003": "astrosonic/bazooka-share", "a004": "astrosonic/community-website", "a005": "astrosonic/F.E.A.S.T."
                 },
                 "t0xic0der": {
-                    "t001": "t0xic0der/syngrafias",
-                    "t002": "t0xic0der/sanctuary-zero",
+                    "t001": "t0xic0der/syngrafias", "t002": "t0xic0der/sanctuary-zero", "t003": "t0xic0der/nvidia-auto-installer-for-fedora", "t004": "t0xic0der/sysmon",
+                    "t005": "t0xic0der/dispatch", "t006": "t0xic0der/forge-zero", "t007": "t0xic0der/nfa-string-parser", "t008": "t0xic0der/re2fa-converter",
+                    "t009": "t0xic0der/inquizition", "t010": "t0xic0der/pignus-framework-vulnerability-detector", "t011": "t0xic0der/pignus-agent-for-internet-protection",
+                    "t012": "t0xic0der/foliage",
                 }
             };
             for (indx in repodict)
@@ -69,18 +80,33 @@
             fetch("https://api.github.com/repos/" + reponame + "/issues")
                 .then(res => res.json())
                 .then((temp) => {
-                    console.log(temp);
                     for (indx in temp)
                     {
                         let modifdom = "<div class='item'>" + "<i class='large file alternate outline middle aligned icon'></i>" + "<div class='content'>" +
-                            "<a class='header izzuhead' herf='" + temp[indx]["html_url"] + "' onclick='toglmodl()'>#" + temp[indx]["number"] + " " + temp[indx]["title"] + "</a>" +
+                            "<a class='header izzuhead' herf='" + temp[indx]["html_url"] + "' onclick='toglmodl(\"" + reponame + "\", " + temp[indx]["number"] + ")'>#" + temp[indx]["number"] + " " + temp[indx]["title"] + "</a>" +
                             "<div class='description izzuhead'><strong>" + temp[indx]["state"].toUpperCase() + "</strong>, Created at " + temp[indx]["created_at"] + "</div>" + "</div>" + "</div>";
                         $("#"+loca).append(modifdom);
                     }
-            }).catch(err => console.error(err));
+            }).catch(err => console.error(err)).then($("#limtexcd").modal("show"));
         }
-        function toglmodl() {
-            $(".ui.basic.modal").modal("show");
+        function toglmodl(reponame, qant) {
+            fetch("https://api.github.com/repos/" + reponame + "/issues/" + qant)
+                .then(res => res.json())
+                .then((temp) => {
+                    $("#repottle").html("<span class='izzuhead'>" + reponame + "</span>");
+                    $("#izzuname").html("<span class='izzuhead'>" + "#" + temp["number"] + " " + temp["title"] + "</span>");
+                    $("#izzuauth").html("<a href='" + temp["user"]["html_url"] + "' target='_blank'><span class='izzuhead'>" + temp["user"]["login"] + "</span></a>");
+                    $("#izzustat").html("<span class='izzuhead' style='font-weight: bold'>" + temp["state"].toUpperCase() + "</span>");
+                    $("#makedate").html("<span class='izzuhead'>" + temp["created_at"] + "</span>");
+                    $("#updtdate").html("<span class='izzuhead'>" + temp["updated_at"] + "</span>");
+                    $("#labelist").html("");
+                    for (indx in temp["labels"])
+                    {
+                        $("#labelist").append("<span class='ui label izzuhead' style='background-color: #" + temp["labels"][indx]["color"] + "'>" + temp["labels"][indx]["name"] + "</span>");
+                    }
+                    $("#yesebutn").click(window.open(temp["html_url"], "_blank"));
+                    $("#izzumode").modal("show");
+            }).catch(err => console.error(err)).then($("#limtexcd").modal("show"));
         }
     </script>
 </html>
