@@ -12,7 +12,7 @@
     <body onload="makeplec();">
         <div class="ui attached stackable menu izzuhead">
             <div class="ui container">
-                <a class="item" href="https://initiative.astrosonic.tech/" target="_blank"><i class="home icon"></i> Home</a>
+                <a class="item" href="https://initiative.astrosonic.tech/"><i class="home icon"></i> Home</a>
                 <a class="item" href="https://astrosonic.tech/about/" target="_blank"><i class="grid layout icon"></i> About</a>
             </div>
         </div>
@@ -21,7 +21,7 @@
         <div class="ui basic modal" id="izzumode">
             <div class="ui icon header"><i class="file alternate outline icon"></i><span id="repottle"></span></div>
             <div class="content" style="text-align: center;">
-                <p>Would you wish to have this issue assigned to you?</p>
+                <p class="izzuhead">Visit the link provided below to address the selected issue.</p>
                 <table class="ui celled striped table">
                     <thead>
                         <tr><th colspan="2" id="izzuname"></th></tr>
@@ -31,13 +31,13 @@
                         <tr><td class="left aligned collapsing">State</td><td id="izzustat"></td></tr>
                         <tr><td class="left aligned collapsing">Created at</td><td id="makedate"></td></tr>
                         <tr><td class="left aligned collapsing">Updated at</td><td id="updtdate"></td></tr>
+                        <tr><td class="left aligned collapsing">Link</td><td id="izzulink"></td></tr>
                         <tr><td class="left aligned collapsing">Labels</td><td id="labelist"></td></tr>
                     </tbody>
                 </table>
             </div>
             <div class="actions" style="text-align: center;">
-                <div class="ui red basic cancel inverted button"><i class="remove icon"></i>Decline</div>
-                <div class="ui green ok inverted button" id="yesebutn"><i class="checkmark icon"></i>Accept</div>
+                <div class="ui red basic cancel inverted button"><i class="remove icon"></i>Back</div>
             </div>
         </div>
         <div class="ui basic modal" id="limtexcd">
@@ -83,7 +83,7 @@
                     for (indx in temp)
                     {
                         let modifdom = "<div class='item'>" + "<i class='large file alternate outline middle aligned icon'></i>" + "<div class='content'>" +
-                            "<a class='header izzuhead' herf='" + temp[indx]["html_url"] + "' onclick='toglmodl(\"" + reponame + "\", " + temp[indx]["number"] + ")'>#" + temp[indx]["number"] + " " + temp[indx]["title"] + "</a>" +
+                            "<a class='header izzuhead' onclick='toglmodl(\"" + reponame + "\", " + temp[indx]["number"] + ")'>#" + temp[indx]["number"] + " " + temp[indx]["title"] + "</a>" +
                             "<div class='description izzuhead'><strong>" + temp[indx]["state"].toUpperCase() + "</strong>, Created at " + temp[indx]["created_at"] + "</div>" + "</div>" + "</div>";
                         $("#"+loca).append(modifdom);
                     }
@@ -99,13 +99,12 @@
                     $("#izzustat").html("<span class='izzuhead' style='font-weight: bold'>" + temp["state"].toUpperCase() + "</span>");
                     $("#makedate").html("<span class='izzuhead'>" + temp["created_at"] + "</span>");
                     $("#updtdate").html("<span class='izzuhead'>" + temp["updated_at"] + "</span>");
+                    $("#izzulink").html("<a href='" + temp["html_url"] + "' target='_blank'><span class='izzuhead'>" + temp["html_url"] + "</span></a>");
                     $("#labelist").html("");
                     for (indx in temp["labels"])
                     {
                         $("#labelist").append("<span class='ui label izzuhead' style='background-color: #" + temp["labels"][indx]["color"] + "'>" + temp["labels"][indx]["name"] + "</span>");
                     }
-                    document.getElementById("yesebutn").onclick(window.open(temp["html_url"], "_blank"));
-                    //$("#yesebutn").onclick();
                     $("#izzumode").modal("show");
             }).catch(err => console.error(err));
         }
