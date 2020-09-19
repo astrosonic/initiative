@@ -12,8 +12,8 @@
     <body onload="makeplec();">
         <div class="ui attached stackable menu izzuhead">
             <div class="ui container">
-                <a class="item"><i class="home icon"></i> Home</a>
-                <a class="item"><i class="grid layout icon"></i> About</a>
+                <a class="item" href="https://initiative.astrosonic.tech/"><i class="home icon"></i> Home</a>
+                <a class="item" href="https://astrosonic.tech/about/"><i class="grid layout icon"></i> About</a>
             </div>
         </div>
         <br/>
@@ -104,7 +104,7 @@
                     {
                         $("#labelist").append("<span class='ui label izzuhead' style='background-color: #" + temp["labels"][indx]["color"] + "'>" + temp["labels"][indx]["name"] + "</span>");
                     }
-                    $("#yesebutn").click(window.open(temp["html_url"], "_blank"));
+                    $("#yesebutn").onclick(window.open(temp["html_url"], "_blank"));
                     $("#izzumode").modal("show");
             }).catch(err => console.error(err));
         }
