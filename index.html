@@ -16,13 +16,15 @@
   <body onload="makeplec();">
     <div class="ui basic modal rate-lmt">
       <div class="ui icon header">
-        <i class="archive icon"></i>
-        Your Rate Limit is Exceeded. Please Try Again Later!!
+        <i class="exclamation triangle icon"></i>
       </div>
-      <div class="content"></div>
-      <div class="actions">
-        <div class="ui green ok inverted button">
-          <i class="checkmark icon"></i>
+      <div class="ui center aligned grid">
+        The API rate limit is exceeded from your IP address. Please try
+        accessing the website later.
+      </div>
+      <div class="actions ui center aligned grid">
+        <div class="ui teal ok inverted button">
+          <i class="sync alternate icon"></i>
           Refresh
         </div>
       </div>
@@ -109,7 +111,7 @@
       fetch("https://api.github.com/rate_limit")
         .then((res) =>
           res.json().then((temp) => {
-            if (temp.rate.remaining <= 0) {
+            if (temp.rate.remaining > 0) {
               $(".ui.basic.modal.rate-lmt")
                 .modal({
                   closable: false,
