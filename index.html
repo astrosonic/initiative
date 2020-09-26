@@ -111,7 +111,7 @@
       fetch("https://api.github.com/rate_limit")
         .then((res) =>
           res.json().then((temp) => {
-            if (temp.rate.remaining > 0) {
+            if (temp.rate.remaining <= 0) {
               $(".ui.basic.modal.rate-lmt")
                 .modal({
                   closable: false,
