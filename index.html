@@ -23,7 +23,7 @@
       <div class="actions">
         <div class="ui green ok inverted button">
           <i class="checkmark icon"></i>
-          Go back to Previous Page
+          Refresh
         </div>
       </div>
     </div>
@@ -118,7 +118,7 @@
                     return false;
                   },
                   onApprove: function () {
-                    window.history.back();
+                    location.reload();
                   },
                 })
                 .modal("show");
