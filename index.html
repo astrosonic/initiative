@@ -107,25 +107,23 @@
     <script>
         function makeplec() {
 			fetch("https://api.github.com/rate_limit")
-        .then((res) =>
-          res.json().then((temp) => {
-            if (temp.rate.remaining <= 0) {
-              $(".ui.basic.modal.rate-lmt")
-                .modal({
-                  closable: false,
-                  onDeny: function () {
-                    window.alert("Wait not yet!");
-                    return false;
-                  },
-                  onApprove: function () {
-                    location.reload();
-                  },
-                })
-                .modal("show");
-            }
-          })
-        )
-        .catch((err) => console.log(err));
+        		.then((res) => res.json())
+				.then((temp) => {
+            		if (temp.rate.remaining > 0) {
+              			$(".ui.basic.modal.rate-lmt").modal({
+                  			closable: false,
+                  			onDeny: function () {
+								window.alert("Wait not yet!");
+								return false;
+                  			},
+                  			onApprove: function () {
+                    		location.reload();
+                  			},
+                		}).modal("show");
+            		}
+          		})
+				.catch((err) => console.log(err));
+
             let repodict = {
                 "astrosonic": {
                     "a001": "astrosonic/bazooka-share",
