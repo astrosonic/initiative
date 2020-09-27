@@ -10,10 +10,11 @@
         <style>.izzuhead {font-family: 'Inter', sans-serif !important;}</style>
     </head>
     <body onload="makeplec();">
-        <div class="ui attached stackable menu izzuhead">
+        <div class="ui attached stackable menu izzuhead inverted teal">
             <div class="ui container">
-                <a class="item" href="https://initiative.astrosonic.tech/"><i class="home icon"></i> Home</a>
-                <a class="item" href="https://astrosonic.tech/about/" target="_blank"><i class="grid layout icon"></i> About</a>
+                <a class="item" href="https://initiative.astrosonic.tech/">Home</a>
+                <a class="item" href="https://astrosonic.tech/about/" target="_blank">Help</a>
+                <div class="ui simple dropdown item">Jump<i class="dropdown icon"></i><div class="menu" id="menulist"></div></div>
             </div>
         </div>
         <br/>
@@ -54,22 +55,35 @@
         function makeplec() {
             let repodict = {
                 "astrosonic": {
-                    "a001": "astrosonic/sanctuary", "a002": "astrosonic/forge", "a003": "astrosonic/bazooka-share", "a004": "astrosonic/community-website", "a005": "astrosonic/F.E.A.S.T."
+                    "a001": "astrosonic/bazooka-share",
+                    "a002": "astrosonic/community-website",
+                    "a003": "astrosonic/F.E.A.S.T.",
+                    "a004": "astrosonic/forge",
+                    "a005": "astrosonic/initiative",
+                    "a006": "astrosonic/sanctuary",
                 },
                 "t0xic0der": {
-                    "t001": "t0xic0der/syngrafias", "t002": "t0xic0der/sanctuary-zero", "t003": "t0xic0der/nvidia-auto-installer-for-fedora", "t004": "t0xic0der/sysmon",
-                    "t005": "t0xic0der/dispatch", "t006": "t0xic0der/forge-zero", "t007": "t0xic0der/nfa-string-parser", "t008": "t0xic0der/re2fa-converter",
-                    "t009": "t0xic0der/inquizition", "t010": "t0xic0der/pignus-framework-vulnerability-detector", "t011": "t0xic0der/pignus-agent-for-internet-protection",
-                    "t012": "t0xic0der/foliage",
-                }
+                    "t001": "t0xic0der/nfa-string-parser",
+                    "t002": "t0xic0der/nvidia-auto-installer-for-fedora",
+                    "t003": "t0xic0der/pignus-agent-for-internet-protection",
+                    "t004": "t0xic0der/pignus-framework-vulnerability-detector",
+                    "t005": "t0xic0der/re2fa-converter",
+                    "t006": "t0xic0der/sanctuary-zero",
+                    "t007": "t0xic0der/syngrafias",
+                    "t008": "t0xic0der/sysmon",
+                },
+                "VaibhavSaini19": {
+                    "v001": "VaibhavSaini19/BootBlox",
+                },
             };
             for (indx in repodict)
             {
-                $("#body").append("<h2 class='ui header teal izzuhead'><i class='github icon'></i><div class='content'>" + indx + "<div class='sub header'>Repository owner</div></div></h2>");
+                $("#body").append("<h2 class='ui header teal izzuhead'><i class='github icon'></i><div class='content'>" + indx + "<div class='sub header'>Repository owner</div></div></h2><hr/>");
                 for (jndx in repodict[indx])
                 {
-                    $("#body").append("<h3 class='ui header izzuhead'>" + repodict[indx][jndx] + "</h3>");
+                    $("#body").append("<h3 class='ui header izzuhead' id='head-" + jndx + "'>" + repodict[indx][jndx] + "&nbsp;<a href='#head-" + jndx + "'><i class='share icon teal'></i></a>&nbsp;<a href='#'><i class='arrow up icon teal'></i></a></h3>");
                     $("#body").append("<div class='ui relaxed divided list' id='" + jndx + "' style='margin-top: 20px;'></div>");
+                    $("#menulist").append("<a class='item' href='#head-" + jndx +"'>" + repodict[indx][jndx] + "</a>")
                     fetcizzu(jndx, repodict[indx][jndx]);
                 }
             }
