@@ -106,7 +106,7 @@
     </body>
     <script>
         function makeplec() {
-            fetch("https://api.thub.com/rate_limit")
+            fetch("https://api.github.com/rate_limit")
                 .then((res) => res.json())
                 .then((temp) => {
                     if (temp.rate.remaining <= 0) {
