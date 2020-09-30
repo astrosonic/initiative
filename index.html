@@ -11,6 +11,14 @@
       .izzuhead {
         font-family: "Inter", sans-serif !important;
       }
+      .menu {
+        position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+      }
+      #noresult{
+        display: none;
+      }
     </style>
   </head>
   <body onload="makeplec();">
@@ -31,16 +39,24 @@
     </div>
     <div class="ui attached stackable menu izzuhead">
       <div class="ui container">
-        <a class="item" href="https://initiative.astrosonic.tech/"
-          ><i class="home icon"></i> Home</a
-        >
+        <a class="item" href="https://initiative.astrosonic.tech/">
+          <i class="home icon"></i> Home</a>
         <a class="item" href="https://astrosonic.tech/about/" target="_blank"
-          ><i class="grid layout icon"></i> About</a
-        >
+          ><i class="grid layout icon"></i> About</a>
+      
+        <div class="right item">
+          <div class="ui icon input">
+            <input type="text" placeholder="Search..." id='search_text' onkeyup="search()">
+            <i class="search icon"></i>
+          </div>
+        </div>
       </div>
     </div>
     <br />
-    <div class="ui container" id="body"></div>
+    <div class="ui container" id="body">
+      
+      <div class='item' id="noresult"><span class='ui warning large text'>No issue Found !!!</span></div>
+    </div>
     <div class="ui basic modal" id="izzumode">
       <div class="ui icon header">
         <i class="file alternate outline icon"></i><span id="repottle"></span>
@@ -160,56 +176,14 @@
             }
           }
 
-      let repodict = {
-        astrosonic: {
-          a001: "astrosonic/sanctuary",
-          a002: "astrosonic/forge",
-          a003: "astrosonic/bazooka-share",
-          a004: "astrosonic/community-website",
-          a005: "astrosonic/F.E.A.S.T.",
-        },
-        t0xic0der: {
-          t001: "t0xic0der/syngrafias",
-          t002: "t0xic0der/sanctuary-zero",
-          t003: "t0xic0der/nvidia-auto-installer-for-fedora",
-          t004: "t0xic0der/sysmon",
-          t005: "t0xic0der/dispatch",
-          t006: "t0xic0der/forge-zero",
-          t007: "t0xic0der/nfa-string-parser",
-          t008: "t0xic0der/re2fa-converter",
-          t009: "t0xic0der/inquizition",
-          t010: "t0xic0der/pignus-framework-vulnerability-detector",
-          t011: "t0xic0der/pignus-agent-for-internet-protection",
-          t012: "t0xic0der/foliage",
-        },
-      };
-      for (indx in repodict) {
-        $("#body").append(
-          "<h2 class='ui header teal izzuhead'><i class='github icon'></i><div class='content'>" +
-            indx +
-            "<div class='sub header'>Repository owner</div></div></h2>"
-        );
-        for (jndx in repodict[indx]) {
-          $("#body").append(
-            "<h3 class='ui header izzuhead'>" + repodict[indx][jndx] + "</h3>"
-          );
-          $("#body").append(
-            "<div class='ui relaxed divided list' id='" +
-              jndx +
-              "' style='margin-top: 20px;'></div>"
-          );
-          fetcizzu(jndx, repodict[indx][jndx]);
-        }
-      }
-      $("#body").append("<br/>");
-    
+      
     function fetcizzu(loca, reponame) {
       fetch("https://api.github.com/repos/" + reponame + "/issues")
         .then((res) => res.json())
         .then((temp) => {
           for (indx in temp) {
             let modifdom =
-              "<div class='item'>" +
+              "<div class='item izzucontent'>" +
               "<i class='large file alternate outline middle aligned icon'></i>" +
               "<div class='content'>" +
               "<a class='header izzuhead' onclick='toglmodl(\"" +
@@ -284,6 +258,28 @@
           $("#izzumode").modal("show");
         })
         .catch((err) => console.error(err));
+    }
+    function search() {
+      const search_string = document.getElementById("search_text").value.toLowerCase();
+      //console.log(search_string);
+      //console.log($('.ui.header.izzuhead').text());
+      
+      $('.izzucontent').removeClass("not_in_search");
+      $('.izzucontent').show();
+      $('#noresult').hide();
+      $('.izzucontent').each(function (index){
+        //if ($(this).text().toLowerCase())
+        if (!$(this).find(".header.izzuhead").text().toLowerCase().includes(search_string)){
+          $(this).addClass("not_in_search");
+          
+        }
+      });
+      
+      
+      $('.izzucontent').filter(".not_in_search").hide();
+      if ( $(".not_in_search").length == $('.izzucontent').length){
+        $('#noresult').show();
+      }
     }
   </script>
 </html>
