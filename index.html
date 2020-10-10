@@ -1,289 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>AstroSonic Initiative</title>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght0@400;700&display=swap" rel="stylesheet"/>
-    <style>
-      .izzuhead {
-        font-family: "Inter", sans-serif !important;
-      }
-    </style>
-  </head>
-  <body onload="makeplec();">
-    <div class="ui basic modal rate-lmt">
-      <div class="ui icon header">
-        <i class="exclamation triangle icon"></i>
-      </div>
-      <div class="ui center aligned grid">
-        The API rate limit is exceeded from your IP address. Please try
-        accessing the website later.
-      </div>
-      <div class="actions ui center aligned grid">
-        <div class="ui teal ok inverted button">
-          <i class="sync alternate icon"></i>
-          Refresh
-        </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>AstroSonic Initiative</title>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght0@400;700&display=swap" rel="stylesheet" />
+  <style>
+    .izzuhead {
+      font-family: "Inter", sans-serif !important;
+    }
+  </style>
+</head>
+
+<body onload="makeplec();">
+  <div class="ui basic modal rate-lmt">
+    <div class="ui icon header">
+      <i class="exclamation triangle icon"></i>
+    </div>
+    <div class="ui center aligned grid">
+      The API rate limit is exceeded from your IP address. Please try
+      accessing the website later.
+    </div>
+    <div class="actions ui center aligned grid">
+      <div class="ui teal ok inverted button">
+        <i class="sync alternate icon"></i>
+        Refresh
       </div>
     </div>
-    <div class="ui attached stackable menu izzuhead">
-      <div class="ui container">
-        <a class="item" href="https://initiative.astrosonic.tech/"
-          ><i class="home icon"></i> Home</a
-        >
-        <a class="item" href="https://astrosonic.tech/about/" target="_blank"
-          ><i class="grid layout icon"></i> About</a
-        >
+  </div>
+  <div class="ui attached stackable menu izzuhead">
+    <div class="ui container">
+      <a class="item" href="https://initiative.astrosonic.tech/"><i class="home icon"></i> Home</a>
+      <a class="item" href="https://astrosonic.tech/about/" target="_blank"><i class="grid layout icon"></i> About</a>
+    </div>
+  </div>
+  <br />
+  <div class="ui container" id="body"></div>
+  <div class="ui basic modal" id="izzumode">
+    <div class="ui icon header">
+      <i class="file alternate outline icon"></i><span id="repottle"></span>
+    </div>
+    <div class="content" style="text-align: center">
+      <p class="izzuhead">
+        Visit the link provided below to address the selected issue.
+      </p>
+      <table class="ui celled striped table">
+        <thead>
+          <tr>
+            <th colspan="2" id="izzuname"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left aligned collapsing">Author</td>
+            <td id="izzuauth"></td>
+          </tr>
+          <tr>
+            <td class="left aligned collapsing">State</td>
+            <td id="izzustat"></td>
+          </tr>
+          <tr>
+            <td class="left aligned collapsing">Created at</td>
+            <td id="makedate"></td>
+          </tr>
+          <tr>
+            <td class="left aligned collapsing">Updated at</td>
+            <td id="updtdate"></td>
+          </tr>
+          <tr>
+            <td class="left aligned collapsing">Link</td>
+            <td id="izzulink"></td>
+          </tr>
+          <tr>
+            <td class="left aligned collapsing">Labels</td>
+            <td id="labelist"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="actions" style="text-align: center">
+      <div class="ui red basic cancel inverted button">
+        <i class="remove icon"></i>Back
       </div>
     </div>
-    <br />
-    <div class="ui container" id="body"></div>
-    <div class="ui basic modal" id="izzumode">
-      <div class="ui icon header">
-        <i class="file alternate outline icon"></i><span id="repottle"></span>
-      </div>
-      <div class="content" style="text-align: center">
-        <p class="izzuhead">
-          Visit the link provided below to address the selected issue.
-        </p>
-        <table class="ui celled striped table">
-          <thead>
-            <tr>
-              <th colspan="2" id="izzuname"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="left aligned collapsing">Author</td>
-              <td id="izzuauth"></td>
-            </tr>
-            <tr>
-              <td class="left aligned collapsing">State</td>
-              <td id="izzustat"></td>
-            </tr>
-            <tr>
-              <td class="left aligned collapsing">Created at</td>
-              <td id="makedate"></td>
-            </tr>
-            <tr>
-              <td class="left aligned collapsing">Updated at</td>
-              <td id="updtdate"></td>
-            </tr>
-            <tr>
-              <td class="left aligned collapsing">Link</td>
-              <td id="izzulink"></td>
-            </tr>
-            <tr>
-              <td class="left aligned collapsing">Labels</td>
-              <td id="labelist"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="actions" style="text-align: center">
-        <div class="ui red basic cancel inverted button">
-          <i class="remove icon"></i>Back
-        </div>
-      </div>
+  </div>
+  <div class="ui basic modal" id="limtexcd">
+    <div class="ui icon header">
+      <i class="exclamation triangle icon"></i>Warning
     </div>
-    <div class="ui basic modal" id="limtexcd">
-      <div class="ui icon header">
-        <i class="exclamation triangle icon"></i>Warning
+    <div class="content" style="text-align: center">
+      <p>
+        The API request limit has been exceeded from your IP address. Please
+        try fetching information later.
+      </p>
+    </div>
+    <div class="actions" style="text-align: center">
+      <div class="ui teal ok inverted button" onclick="location.reload()">
+        <i class="sync icon"></i>Refresh
       </div>
-      <div class="content" style="text-align: center">
-        <p>
-          The API request limit has been exceeded from your IP address. Please
-          try fetching information later.
-        </p>
-      </div>
-      <div class="actions" style="text-align: center">
-        <div class="ui teal ok inverted button" onclick="location.reload()">
-          <i class="sync icon"></i>Refresh
-        </div>
-    </body>
-    <script>
-        function makeplec() {
-            fetch("https://api.github.com/rate_limit")
-                .then((res) => res.json())
-                .then((temp) => {
-                    if (temp.rate.remaining <= 0) {
-                          $(".ui.basic.modal.rate-lmt").modal({
-                              closable: false,
-                              onDeny: function () {
-                                window.alert("Wait not yet!");
-                                return false;
-                              },
-                              onApprove: function () {
-                            location.reload();
-                              },
-                        }).modal("show");
-                    }
-                  })
-                .catch((err) => console.log(err));
+</body>
+<script>
+  function makeplec() {
 
-            let repodict = {
-                "astrosonic": {
-                    "a001": "astrosonic/bazooka-share",
-                    "a002": "astrosonic/community-website",
-                    "a003": "astrosonic/F.E.A.S.T.",
-                    "a004": "astrosonic/forge",
-                    "a005": "astrosonic/initiative",
-                    "a006": "astrosonic/sanctuary",
-                },
-                "t0xic0der": {
-                    "t001": "t0xic0der/nfa-string-parser",
-                    "t002": "t0xic0der/nvidia-auto-installer-for-fedora",
-                    "t003": "t0xic0der/pignus-agent-for-internet-protection",
-                    "t004": "t0xic0der/pignus-framework-vulnerability-detector",
-                    "t005": "t0xic0der/re2fa-converter",
-                    "t006": "t0xic0der/sanctuary-zero",
-                    "t007": "t0xic0der/syngrafias",
-                    "t008": "t0xic0der/sysmon",
-                },
-                "VaibhavSaini19": {
-                    "v001": "VaibhavSaini19/BootBlox",
-                },
-            };
-            for (indx in repodict)
-            {
-                $("#body").append("<h2 class='ui header teal izzuhead'><i class='github icon'></i><div class='content'>" + indx + "<div class='sub header'>Repository owner</div></div></h2>");
-                for (jndx in repodict[indx])
-                {
-                    $("#body").append("<h3 class='ui header izzuhead'>" + repodict[indx][jndx] + "</h3>");
-                    $("#body").append("<div class='ui relaxed divided list' id='" + jndx + "' style='margin-top: 20px;'></div>");
-                    fetcizzu(jndx, repodict[indx][jndx]);
-                }
+    let time = new Date().getTime();
 
-            }
-          }
-
-      let repodict = {
-        astrosonic: {
-          a001: "astrosonic/sanctuary",
-          a002: "astrosonic/forge",
-          a003: "astrosonic/bazooka-share",
-          a004: "astrosonic/community-website",
-          a005: "astrosonic/F.E.A.S.T.",
-        },
-        t0xic0der: {
-          t001: "t0xic0der/syngrafias",
-          t002: "t0xic0der/sanctuary-zero",
-          t003: "t0xic0der/nvidia-auto-installer-for-fedora",
-          t004: "t0xic0der/sysmon",
-          t005: "t0xic0der/dispatch",
-          t006: "t0xic0der/forge-zero",
-          t007: "t0xic0der/nfa-string-parser",
-          t008: "t0xic0der/re2fa-converter",
-          t009: "t0xic0der/inquizition",
-          t010: "t0xic0der/pignus-framework-vulnerability-detector",
-          t011: "t0xic0der/pignus-agent-for-internet-protection",
-          t012: "t0xic0der/foliage",
-        },
-      };
-      for (indx in repodict) {
-        $("#body").append(
-          "<h2 class='ui header teal izzuhead'><i class='github icon'></i><div class='content'>" +
-            indx +
-            "<div class='sub header'>Repository owner</div></div></h2>"
-        );
-        for (jndx in repodict[indx]) {
-          $("#body").append(
-            "<h3 class='ui header izzuhead'>" + repodict[indx][jndx] + "</h3>"
-          );
-          $("#body").append(
-            "<div class='ui relaxed divided list' id='" +
-              jndx +
-              "' style='margin-top: 20px;'></div>"
-          );
-          fetcizzu(jndx, repodict[indx][jndx]);
+    fetch("https://api.github.com/rate_limit")
+      .then((res) => res.json())
+      .then((temp) => {
+        if (temp.rate.remaining <= 0) {
+          time = new Date().getTime();
+          $(".ui.basic.modal.rate-lmt").modal({
+            closable: false,
+            onDeny: function () {
+              window.alert("Wait not yet!");
+              return false;
+            },
+            onApprove: function () {
+              location.reload();
+            },
+          }).modal("show");
         }
+      })
+      .catch((err) => console.log(err));
+
+    function refresh() {
+      if (new Date().getTime() - time >= 20000)
+        location.reload(true);
+      else
+        setTimeout(refresh, 10000);
+    }
+
+    setTimeout(refresh, 10000);
+
+    let repodict = {
+      "astrosonic": {
+        "a001": "astrosonic/bazooka-share",
+        "a002": "astrosonic/community-website",
+        "a003": "astrosonic/F.E.A.S.T.",
+        "a004": "astrosonic/forge",
+        "a005": "astrosonic/initiative",
+        "a006": "astrosonic/sanctuary",
+      },
+      "t0xic0der": {
+        "t001": "t0xic0der/nfa-string-parser",
+        "t002": "t0xic0der/nvidia-auto-installer-for-fedora",
+        "t003": "t0xic0der/pignus-agent-for-internet-protection",
+        "t004": "t0xic0der/pignus-framework-vulnerability-detector",
+        "t005": "t0xic0der/re2fa-converter",
+        "t006": "t0xic0der/sanctuary-zero",
+        "t007": "t0xic0der/syngrafias",
+        "t008": "t0xic0der/sysmon",
+      },
+      "VaibhavSaini19": {
+        "v001": "VaibhavSaini19/BootBlox",
+      },
+    };
+    for (indx in repodict) {
+      $("#body").append("<h2 class='ui header teal izzuhead'><i class='github icon'></i><div class='content'>" + indx +
+        "<div class='sub header'>Repository owner</div></div></h2>");
+      for (jndx in repodict[indx]) {
+        $("#body").append("<h3 class='ui header izzuhead'>" + repodict[indx][jndx] + "</h3>");
+        $("#body").append("<div class='ui relaxed divided list' id='" + jndx + "' style='margin-top: 20px;'></div>");
+        fetcizzu(jndx, repodict[indx][jndx]);
       }
-      $("#body").append("<br/>");
-    
-    function fetcizzu(loca, reponame) {
-      fetch("https://api.github.com/repos/" + reponame + "/issues")
-        .then((res) => res.json())
-        .then((temp) => {
-          for (indx in temp) {
-            let modifdom =
-              "<div class='item'>" +
-              "<i class='large file alternate outline middle aligned icon'></i>" +
-              "<div class='content'>" +
-              "<a class='header izzuhead' onclick='toglmodl(\"" +
-              reponame +
-              '", ' +
-              temp[indx]["number"] +
-              ")'>#" +
-              temp[indx]["number"] +
-              " " +
-              temp[indx]["title"] +
-              "</a>" +
-              "<div class='description izzuhead'><strong>" +
-              temp[indx]["state"].toUpperCase() +
-              "</strong>, Created at " +
-              temp[indx]["created_at"] +
-              "</div>" +
-              "</div>" +
-              "</div>";
-            $("#" + loca).append(modifdom);
-          }
-        })
-        .catch((err) => console.error(err));
+
     }
-    function toglmodl(reponame, qant) {
-      fetch("https://api.github.com/repos/" + reponame + "/issues/" + qant)
-        .then((res) => res.json())
-        .then((temp) => {
-          $("#repottle").html("<span class='izzuhead'>" + reponame + "</span>");
-          $("#izzuname").html(
-            "<span class='izzuhead'>" +
-              "#" +
-              temp["number"] +
-              " " +
-              temp["title"] +
-              "</span>"
-          );
-          $("#izzuauth").html(
-            "<a href='" +
-              temp["user"]["html_url"] +
-              "' target='_blank'><span class='izzuhead'>" +
-              temp["user"]["login"] +
-              "</span></a>"
-          );
-          $("#izzustat").html(
-            "<span class='izzuhead' style='font-weight: bold'>" +
-              temp["state"].toUpperCase() +
-              "</span>"
-          );
-          $("#makedate").html(
-            "<span class='izzuhead'>" + temp["created_at"] + "</span>"
-          );
-          $("#updtdate").html(
-            "<span class='izzuhead'>" + temp["updated_at"] + "</span>"
-          );
-          $("#izzulink").html(
-            "<a href='" +
-              temp["html_url"] +
-              "' target='_blank'><span class='izzuhead'>" +
-              temp["html_url"] +
-              "</span></a>"
-          );
-          $("#labelist").html("");
-          for (indx in temp["labels"]) {
-            $("#labelist").append(
-              "<span class='ui label izzuhead' style='background-color: #" +
-                temp["labels"][indx]["color"] +
-                "'>" +
-                temp["labels"][indx]["name"] +
-                "</span>"
-            );
-          }
-          $("#izzumode").modal("show");
-        })
-        .catch((err) => console.error(err));
+  }
+
+  let repodict = {
+    astrosonic: {
+      a001: "astrosonic/sanctuary",
+      a002: "astrosonic/forge",
+      a003: "astrosonic/bazooka-share",
+      a004: "astrosonic/community-website",
+      a005: "astrosonic/F.E.A.S.T.",
+    },
+    t0xic0der: {
+      t001: "t0xic0der/syngrafias",
+      t002: "t0xic0der/sanctuary-zero",
+      t003: "t0xic0der/nvidia-auto-installer-for-fedora",
+      t004: "t0xic0der/sysmon",
+      t005: "t0xic0der/dispatch",
+      t006: "t0xic0der/forge-zero",
+      t007: "t0xic0der/nfa-string-parser",
+      t008: "t0xic0der/re2fa-converter",
+      t009: "t0xic0der/inquizition",
+      t010: "t0xic0der/pignus-framework-vulnerability-detector",
+      t011: "t0xic0der/pignus-agent-for-internet-protection",
+      t012: "t0xic0der/foliage",
+    },
+  };
+  for (indx in repodict) {
+    $("#body").append(
+      "<h2 class='ui header teal izzuhead'><i class='github icon'></i><div class='content'>" +
+      indx +
+      "<div class='sub header'>Repository owner</div></div></h2>"
+    );
+    for (jndx in repodict[indx]) {
+      $("#body").append(
+        "<h3 class='ui header izzuhead'>" + repodict[indx][jndx] + "</h3>"
+      );
+      $("#body").append(
+        "<div class='ui relaxed divided list' id='" +
+        jndx +
+        "' style='margin-top: 20px;'></div>"
+      );
+      fetcizzu(jndx, repodict[indx][jndx]);
     }
-  </script>
+  }
+  $("#body").append("<br/>");
+
+  function fetcizzu(loca, reponame) {
+    fetch("https://api.github.com/repos/" + reponame + "/issues")
+      .then((res) => res.json())
+      .then((temp) => {
+        for (indx in temp) {
+          let modifdom =
+            "<div class='item'>" +
+            "<i class='large file alternate outline middle aligned icon'></i>" +
+            "<div class='content'>" +
+            "<a class='header izzuhead' onclick='toglmodl(\"" +
+            reponame +
+            '", ' +
+            temp[indx]["number"] +
+            ")'>#" +
+            temp[indx]["number"] +
+            " " +
+            temp[indx]["title"] +
+            "</a>" +
+            "<div class='description izzuhead'><strong>" +
+            temp[indx]["state"].toUpperCase() +
+            "</strong>, Created at " +
+            temp[indx]["created_at"] +
+            "</div>" +
+            "</div>" +
+            "</div>";
+          $("#" + loca).append(modifdom);
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function toglmodl(reponame, qant) {
+    fetch("https://api.github.com/repos/" + reponame + "/issues/" + qant)
+      .then((res) => res.json())
+      .then((temp) => {
+        $("#repottle").html("<span class='izzuhead'>" + reponame + "</span>");
+        $("#izzuname").html(
+          "<span class='izzuhead'>" +
+          "#" +
+          temp["number"] +
+          " " +
+          temp["title"] +
+          "</span>"
+        );
+        $("#izzuauth").html(
+          "<a href='" +
+          temp["user"]["html_url"] +
+          "' target='_blank'><span class='izzuhead'>" +
+          temp["user"]["login"] +
+          "</span></a>"
+        );
+        $("#izzustat").html(
+          "<span class='izzuhead' style='font-weight: bold'>" +
+          temp["state"].toUpperCase() +
+          "</span>"
+        );
+        $("#makedate").html(
+          "<span class='izzuhead'>" + temp["created_at"] + "</span>"
+        );
+        $("#updtdate").html(
+          "<span class='izzuhead'>" + temp["updated_at"] + "</span>"
+        );
+        $("#izzulink").html(
+          "<a href='" +
+          temp["html_url"] +
+          "' target='_blank'><span class='izzuhead'>" +
+          temp["html_url"] +
+          "</span></a>"
+        );
+        $("#labelist").html("");
+        for (indx in temp["labels"]) {
+          $("#labelist").append(
+            "<span class='ui label izzuhead' style='background-color: #" +
+            temp["labels"][indx]["color"] +
+            "'>" +
+            temp["labels"][indx]["name"] +
+            "</span>"
+          );
+        }
+        $("#izzumode").modal("show");
+      })
+      .catch((err) => console.error(err));
+  }
+</script>
+
 </html>
